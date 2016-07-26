@@ -84,6 +84,20 @@ std::vector<GLuint> ebufTruss = { 1, 2, 0,
 								  3, 5, 6,
 								  4 };
 
+std::vector<glm::vec3> vertsTruss2 = {
+	glm::vec3(-0.5f, -0.25f, 0.0f),	//0 - 0
+	glm::vec3(-0.25f, 0.25f, 0.0f),	//2 - 1
+	glm::vec3(0.0f, -0.25f, 0.0f),	//3 - 2
+	glm::vec3(0.25f, 0.25f, 0.0f),	//4 - 3
+	glm::vec3(0.5f, -0.25f, 0.0f),	//5 - 4
+};
+
+
+
+std::vector<GLuint> ebufTruss2 = { 0, 1, 2,
+								   1, 2, 3,
+								   2, 3, 4};
+
 /*std::vector<glm::vec3> vertsSquare = {
 	glm::vec3(-0.500000, -0.500000, 0.500000),
 	glm::vec3(0.500000, -0.500000, 0.500000),
@@ -260,11 +274,11 @@ void init()
 	// Only 2 parameters required: A reference to the shader program and the name of the uniform variable within the shader code.
 	//mvpLoc = glGetUniformLocation(program, "MVP");
 
-	// This is not necessary, but I prefer to handle my vertices in the clockwise order. glFrontFace defines which face of the triangles you're drawing is the front.
-	// Essentially, if you draw your vertices in counter-clockwise order, by default (in OpenGL) the front face will be facing you/the screen. If you draw them clockwise, the front face 
-	// will face away from you. By passing in GL_CW to this function, we are saying the opposite, and now the front face will face you if you draw in the clockwise order.
-	// If you don't use this, just reverse the order of the vertices in your array when you define them so that you draw the points in a counter-clockwise order.
-	//glFrontFace(GL_CW);
+		// This is not necessary, but I prefer to handle my vertices in the clockwise order. glFrontFace defines which face of the triangles you're drawing is the front.
+		// Essentially, if you draw your vertices in counter-clockwise order, by default (in OpenGL) the front face will be facing you/the screen. If you draw them clockwise, the front face 
+		// will face away from you. By passing in GL_CW to this function, we are saying the opposite, and now the front face will face you if you draw in the clockwise order.
+		// If you don't use this, just reverse the order of the vertices in your array when you define them so that you draw the points in a counter-clockwise order.
+		//glFrontFace(GL_CW);
 
 	// This is also not necessary, but more efficient and is generally good practice. By default, OpenGL will render both sides of a triangle that you draw. By enabling GL_CULL_FACE, 
 	// we are telling OpenGL to only render the front face. This means that if you rotated the triangle over the X-axis, you wouldn't see the other side of the triangle as it rotated.
@@ -279,7 +293,8 @@ void init()
 #pragma endregion
 
 	block = new MeshEBuf(&vertsSq, &ebufSq, glm::vec3(0, 0, 0), glm::vec3(0, 0, 0), 0.25, program);
-	truss = new MeshEBuf(&vertsTruss, &ebufTruss, &trussAng, &trussEdges, glm::vec3(0.0f, -0.5f, 0), glm::vec3(0, 0, 0), 0.35, program);
+	//truss = new MeshEBuf(&vertsTruss, &ebufTruss, &trussAng, &trussEdges, glm::vec3(0.0f, -0.5f, 0), glm::vec3(0, 0, 0), 0.35, program);
+	truss = new MeshEBuf(&vertsTruss2, &ebufTruss2, nullptr, nullptr, glm::vec3(0.0f, -0.5f, 0), glm::vec3(0, 0, 0), 0.35, program);
 }
 
 // Functions called between every frame. game logic
@@ -289,7 +304,7 @@ void update(float dt)
 {
 	//std::cout << "Block: " << block->transform.position.x << ", " << block->transform.position.y << ", " << block->transform.position.z << std::endl;
 	//std::cout << "Truss: " << truss->transform.position.x << ", " << truss->transform.position.y << ", " << truss->transform.position.z << std::endl;
-	if (!(block->transform.position.y < (truss->transform.position.y + 0.31f) && block->transform.position.y > (truss->transform.position.y - 0.31f)))
+	if (!(block->transform.position.y < (truss->transform.position.y + 0.22f) && block->transform.position.y > (truss->transform.position.y - 0.22f)))
 	{
 		//std::cout << "WAT!!" << std::endl;
 		block->update(dt);
