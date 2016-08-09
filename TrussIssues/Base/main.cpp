@@ -92,7 +92,13 @@ std::vector<glm::vec3> vertsTruss2 = {
 	glm::vec3(0.5f, -0.25f, 0.0f),	//5 - 4
 };
 
-
+std::vector<glm::vec3> vertsTrussDeformed = {
+	glm::vec3(-0.5f-0.032f+0.036f, -0.25f+0.063f, 0.0f),	//0 - 0
+	glm::vec3(-0.25f+0.032f-0.036f, 0.25f, 0.0f),	//2 - 1
+	glm::vec3(0.0f, -0.25f-0.063f, 0.0f),	//3 - 2
+	glm::vec3(0.25f-0.032f+0.036f, 0.25f, 0.0f),	//4 - 3
+	glm::vec3(0.5f+0.032f-0.036f, -0.25f+0.063f, 0.0f),	//5 - 4
+};
 
 std::vector<GLuint> ebufTruss2 = { 0, 1, 2,
 								   1, 2, 3,
@@ -159,7 +165,6 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 
 void main()
 {
-
 	/*std::vector<std::vector<GLuint>> sqEdges = { { 1, 2 },
 												 { 0, 2, 3 },
 												 { 0, 1, 3 },
@@ -292,9 +297,9 @@ void init()
 
 #pragma endregion
 
-	block = new MeshEBuf(&vertsSq, &ebufSq, glm::vec3(0, 0, 0), glm::vec3(0, 0, 0), 0.25, program);
+	//block = new MeshEBuf(&vertsSq, &ebufSq, glm::vec3(0, 0, 0), glm::vec3(0, 0, 0), 0.25, program);
 	//truss = new MeshEBuf(&vertsTruss, &ebufTruss, &trussAng, &trussEdges, glm::vec3(0.0f, -0.5f, 0), glm::vec3(0, 0, 0), 0.35, program);
-	truss = new MeshEBuf(&vertsTruss2, &ebufTruss2, nullptr, nullptr, glm::vec3(0.0f, -0.5f, 0), glm::vec3(0, 0, 0), 0.35, program);
+	truss = new MeshEBuf(&vertsTrussDeformed, &ebufTruss2, nullptr, nullptr, glm::vec3(0.0f, -0.5f, 0), glm::vec3(0, 0, 0), 0.35, program);
 }
 
 // Functions called between every frame. game logic
@@ -304,12 +309,12 @@ void update(float dt)
 {
 	//std::cout << "Block: " << block->transform.position.x << ", " << block->transform.position.y << ", " << block->transform.position.z << std::endl;
 	//std::cout << "Truss: " << truss->transform.position.x << ", " << truss->transform.position.y << ", " << truss->transform.position.z << std::endl;
-	if (!(block->transform.position.y < (truss->transform.position.y + 0.22f) && block->transform.position.y > (truss->transform.position.y - 0.22f)))
-	{
-		//std::cout << "WAT!!" << std::endl;
-		block->update(dt);
-	}
-	truss->update(dt);
+	//if (!(block->transform.position.y < (truss->transform.position.y + 0.22f) && block->transform.position.y > (truss->transform.position.y - 0.22f)))
+	//{
+	//	//std::cout << "WAT!!" << std::endl;
+	//	block->update(dt);
+	//}
+	//truss->update(dt);
 }
 
 // This function runs every frame
@@ -322,7 +327,7 @@ void renderScene()
 	// Clear the screen to white
 	glClearColor(0.0, 0.0, 1.0, 1.0);
 
-	block->render(glm::vec3(1, 0, 0), GL_TRIANGLE_STRIP);
+	//block->render(glm::vec3(1, 0, 0), GL_TRIANGLE_STRIP);
 	truss->render(glm::vec3(0, 1, 0), GL_TRIANGLE_STRIP);
 }
 
