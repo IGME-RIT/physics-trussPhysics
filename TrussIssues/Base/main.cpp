@@ -137,6 +137,7 @@ std::vector<std::vector<GLuint>> trussEdges = { { 1, 2, 3 },
 MeshEBuf* block;
 //The truss simulating Truss physics
 MeshEBuf* truss;
+MeshEBuf* trussDeformed;
 
 std::vector<std::vector<GLfloat>> trussAng;
 
@@ -299,7 +300,8 @@ void init()
 
 	//block = new MeshEBuf(&vertsSq, &ebufSq, glm::vec3(0, 0, 0), glm::vec3(0, 0, 0), 0.25, program);
 	//truss = new MeshEBuf(&vertsTruss, &ebufTruss, &trussAng, &trussEdges, glm::vec3(0.0f, -0.5f, 0), glm::vec3(0, 0, 0), 0.35, program);
-	truss = new MeshEBuf(&vertsTrussDeformed, &ebufTruss2, nullptr, nullptr, glm::vec3(0.0f, -0.5f, 0), glm::vec3(0, 0, 0), 0.35, program);
+	truss = new MeshEBuf(&vertsTruss2, &ebufTruss2, nullptr, nullptr, glm::vec3(0.0f, -0.5f, 0), glm::vec3(0, 0, 0), 0.35, program);
+	trussDeformed = new MeshEBuf(&vertsTrussDeformed, &ebufTruss2, nullptr, nullptr, glm::vec3(0.0f, -0.5f, 0), glm::vec3(0, 0, 0), 0.35, program);
 }
 
 // Functions called between every frame. game logic
@@ -329,6 +331,7 @@ void renderScene()
 
 	//block->render(glm::vec3(1, 0, 0), GL_TRIANGLE_STRIP);
 	truss->render(glm::vec3(0, 1, 0), GL_TRIANGLE_STRIP);
+	trussDeformed->render(glm::vec3(0, 1, 0), GL_TRIANGLE_STRIP);
 }
 
 //Code taken from https://github.com/IGME-RIT/physics-physicsTimestep
